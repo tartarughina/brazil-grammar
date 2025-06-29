@@ -1,0 +1,169 @@
+==========
+Empty list
+==========
+
+foo = ();
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list)
+    )
+)
+
+
+===================
+Error: single comma
+===================
+
+foo = (,);
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (ERROR)
+        )
+    )
+)
+
+
+============
+Single value
+============
+
+foo = (1);
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (string)
+        )
+    )
+)
+
+
+================================
+Single value with trailing comma
+================================
+
+foo = ( 1 , );
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (string))
+    )
+)
+
+
+=====================
+Several string values
+=====================
+
+foo = (1, 2, "", ",", hello,);
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (string)
+            (string)
+            (string)
+            (string)
+            (string)
+        )
+    )
+)
+
+
+====================
+Error: missing comma
+====================
+
+foo = (1 2);
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (string)
+            (ERROR (UNEXPECTED '2'))
+        )
+    )
+)
+
+
+==========
+Multi-line
+==========
+
+foo = (
+
+1
+    ,
+        2
+
+ , 3
+	)
+;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (string)
+            (string)
+            (string)
+        )
+    )
+)
+
+
+====================
+Heterogeneous values
+====================
+
+foo = (1, (), {}, ",", (x,y), {a=b;});
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (list
+            (string)
+            (list)
+            (dictionary)
+            (string)
+            (list
+                (string)
+                (string)
+            )
+            (dictionary
+                (pair
+                    key: (string)
+                    value: (string)
+                )
+            )
+        )
+    )
+)
+
+

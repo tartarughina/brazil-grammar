@@ -1,0 +1,47 @@
+=============
+Basic strings
+=============
+
+foo = bar;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+    )
+)
+
+
+===========
+With quotes
+===========
+
+"foo" = "bar";
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+    )
+)
+
+
+========================
+Weird quotes and escapes
+========================
+
+f"oo = "b\"ar";
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+    )
+)
+

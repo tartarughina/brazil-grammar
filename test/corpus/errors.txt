@@ -1,0 +1,137 @@
+===========
+Missing key
+===========
+
+= b;
+
+--------
+
+(source_file
+    (pair
+        key: (string
+            (MISSING _quoted_string)
+        )
+        value: (string)
+    )
+)
+
+
+=============
+Missing value
+=============
+
+a = ;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string
+            (MISSING _quoted_string)
+        )
+    )
+)
+
+
+==================
+Missing equal sign
+==================
+
+a b;
+
+--------
+
+(source_file
+    (ERROR
+         (string)
+         (UNEXPECTED 'b')
+    )
+)
+
+
+=================
+Missing semicolon
+=================
+
+a = b
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+        (MISSING ";")
+    )
+)
+
+
+=========================
+Extra token before equals
+=========================
+
+a b = c;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        (ERROR (UNEXPECTED 'b'))
+        value: (string)
+    )
+)
+
+
+========================
+Extra token after equals
+========================
+
+a = b c;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+        (ERROR (UNEXPECTED 'c'))
+    )
+)
+
+
+=============================
+Incomplete pair, up to equals
+=============================
+
+a =
+c = d;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+        (ERROR (UNEXPECTED 'd'))
+    )
+)
+
+
+=============================
+Incomplete pair, up to value
+=============================
+
+a = b
+c = d;
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (string)
+        (ERROR (UNEXPECTED 'c') (UNEXPECTED 'd'))
+    )
+)

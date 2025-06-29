@@ -1,0 +1,292 @@
+==============================
+Empty dictionary (single line)
+==============================
+
+foo = {};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary)
+    )
+)
+
+
+============================
+Empty dictionary (multiline)
+============================
+
+foo = {
+
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary)
+    )
+)
+
+
+============
+String pairs
+============
+
+foo = {
+    a = b;
+    "c" = "d";
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (string)
+            )
+            (pair
+                key: (string)
+                value: (string)
+            )
+        )
+    )
+)
+
+
+============
+Nested dicts
+============
+
+foo = {
+    a = {
+        b = {};
+    };
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (dictionary
+                    (pair
+                        key: (string)
+                        value: (dictionary)
+                    )
+                )
+            )
+        )
+    )
+)
+
+
+===========
+Mixed types
+===========
+
+foo = {
+    a = ();
+    b="b";
+    "c"=c;
+    d={f=g;};
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (list)
+            )
+            (pair
+                key: (string)
+                value: (string)
+            )
+            (pair
+                key: (string)
+                value: (string)
+            )
+            (pair
+                key: (string)
+                value: (dictionary
+                    (pair
+                        key: (string)
+                        value: (string)
+                    )
+                )
+            )
+        )
+    )
+)
+
+
+==============
+Only semicolon
+==============
+
+bar = {
+    ;
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (ERROR)
+        )
+    )
+)
+
+
+============================
+Missing internal semicolon 1
+============================
+
+bar = {
+    a = b
+    c = d;
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (string)
+                (ERROR (UNEXPECTED 'c') (UNEXPECTED 'd'))
+            )
+        )
+    )
+)
+
+
+============================
+Missing internal semicolon 2
+============================
+
+foo = {
+    a = b;
+    c=d
+};
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (string)
+            )
+            (pair
+                key: (string)
+                value: (string)
+                (MISSING ";")
+            )
+        )
+    )
+)
+
+
+==========================
+Missing external semicolon
+==========================
+
+foo = {
+    a = b;
+    c=d;
+}
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (string)
+            )
+            (pair
+                key: (string)
+                value: (string)
+            )
+        )
+        (MISSING ";")
+    )
+)
+
+
+==================
+Interrupted list 1
+==================
+
+foo = {
+    a = (
+};
+b=")";
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (ERROR (string))
+        )
+    )
+    (pair
+        key: (string)
+        value: (string)
+    )
+)
+
+
+==================
+Interrupted list 2
+==================
+
+foo = {
+    a = (x;
+};
+b=")";
+
+--------
+
+(source_file
+    (pair
+        key: (string)
+        value: (dictionary
+            (pair
+                key: (string)
+                value: (list
+                    (string)
+                    (MISSING ")")
+                )
+            )
+        )
+    )
+    (pair
+        key: (string)
+        value: (string)
+    )
+)
