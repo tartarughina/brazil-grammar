@@ -10,8 +10,7 @@ module.exports = grammar({
     source_file: $ => $.package,
 
     package: $ => seq(
-      'package.',  // Make this a separate token
-      field('name', $._non_quoted_string), // Directly expose the name at top level
+      field('name', $.string),
       field('assignment', '='),
       field('value', $.dictionary),
       ';'
