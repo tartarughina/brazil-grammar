@@ -26,9 +26,9 @@ module.exports = grammar({
     _value: $ => choice(
       $.dictionary,
       $.list,
-      $.string,
       $.version,
-      $.boolean
+      $.boolean,
+      $.string
     ),
 
     dictionary: $ => seq(
