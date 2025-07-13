@@ -93,16 +93,28 @@
           "name": "list"
         },
         {
-          "type": "SYMBOL",
-          "name": "version"
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "version"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "boolean"
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "boolean"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "string"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
         }
       ]
     },
@@ -192,12 +204,20 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_quoted_string"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_quoted_string"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "_non_quoted_string"
+          "type": "PREC",
+          "value": 0,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_non_quoted_string"
+          }
         }
       ]
     },
@@ -205,16 +225,28 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_number"
+          "type": "PREC",
+          "value": 3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_mixed_version"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "_semver_number"
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_semver_number"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "_mixed_version"
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_number"
+          }
         }
       ]
     },
@@ -227,8 +259,15 @@
       "value": "\"(?:\\\\\"|[^\"])*\""
     },
     "_non_quoted_string": {
-      "type": "PATTERN",
-      "value": "(?:\\\\[\\s#,;{}=+()]|[^\\s#,;{}=+()])+"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "(?:\\\\[\\s#,;{}=+()]|[^\\s#,;{}=+()\"])+"
+        }
+      }
     },
     "_number": {
       "type": "PATTERN",

@@ -26,9 +26,9 @@ module.exports = grammar({
     _value: $ => choice(
       $.dictionary,
       $.list,
-      $.version,
-      $.boolean,
-      $.string
+      prec(2, $.version),    // Higher precedence than string
+      prec(2, $.boolean),    // Higher precedence than string
+      prec(1, $.string)      // Lower precedence
     ),
 
     dictionary: $ => seq(
@@ -50,21 +50,22 @@ module.exports = grammar({
     ),
 
     string: $ => choice(
-      $._quoted_string,
-      $._non_quoted_string,
+      prec(1, $._quoted_string),
+      prec(0, $._non_quoted_string),  // Lowest precedence for non-quoted
     ),
 
     version: $ => choice(
-      $._number,
-      $._semver_number,
-      $._mixed_version
+      prec(3, $._mixed_version),    // Most specific first
+      prec(2, $._semver_number),
+      prec(1, $._number)
     ),
 
     boolean: $ => $._boolean,
 
     _quoted_string: _ => /"(?:\\"|[^"])*"/,
 
-    _non_quoted_string: _ => /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()])+/,
+    // Make non-quoted string more restrictive to avoid conflicts
+    _non_quoted_string: _ => token(prec(-1, /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()"])+/)),
 
     _number: _ => /"?[0-9]+(\.[0-9]+)?"?/,
     _semver_number: _ => /"?[0-9]+(\.[0-9]+)*\.x"?/,
