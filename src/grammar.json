@@ -47,7 +47,7 @@
           "name": "key",
           "content": {
             "type": "SYMBOL",
-            "name": "string"
+            "name": "_key"
           }
         },
         {
@@ -81,17 +81,30 @@
         }
       ]
     },
-    "_value": {
+    "_key": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "dictionary"
+          "type": "PREC",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "version"
+          }
         },
         {
-          "type": "SYMBOL",
-          "name": "list"
-        },
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    "_value": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "PREC",
           "value": 2,
@@ -106,6 +119,22 @@
           "content": {
             "type": "SYMBOL",
             "name": "boolean"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "dictionary"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "list"
           }
         },
         {
@@ -213,7 +242,7 @@
         },
         {
           "type": "PREC",
-          "value": 0,
+          "value": -1,
           "content": {
             "type": "SYMBOL",
             "name": "_non_quoted_string"

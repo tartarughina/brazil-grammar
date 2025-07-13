@@ -111,6 +111,10 @@
           {
             "type": "string",
             "named": true
+          },
+          {
+            "type": "version",
+            "named": true
           }
         ]
       },

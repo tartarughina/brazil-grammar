@@ -17,18 +17,23 @@ module.exports = grammar({
     ),
 
     pair: $ => seq(
-      field('key', $.string),
+      field('key', $._key),
       field('assignment', choice('=', '+=')),
       field('value', $._value),
       ';',
     ),
 
+    _key: $ => choice(
+      prec(2, $.version),
+      prec(1, $.string)
+    ),
+
     _value: $ => choice(
-      $.dictionary,
-      $.list,
-      prec(2, $.version),    // Higher precedence than string
-      prec(2, $.boolean),    // Higher precedence than string
-      prec(1, $.string)      // Lower precedence
+      prec(2, $.version),
+      prec(2, $.boolean),
+      prec(1, $.dictionary),
+      prec(1, $.list),
+      prec(1, $.string)
     ),
 
     dictionary: $ => seq(
@@ -51,11 +56,11 @@ module.exports = grammar({
 
     string: $ => choice(
       prec(1, $._quoted_string),
-      prec(0, $._non_quoted_string),  // Lowest precedence for non-quoted
+      prec(-1, $._non_quoted_string),
     ),
 
     version: $ => choice(
-      prec(3, $._mixed_version),    // Most specific first
+      prec(3, $._mixed_version),
       prec(2, $._semver_number),
       prec(1, $._number)
     ),
@@ -64,8 +69,9 @@ module.exports = grammar({
 
     _quoted_string: _ => /"(?:\\"|[^"])*"/,
 
-    // Make non-quoted string more restrictive to avoid conflicts
-    _non_quoted_string: _ => token(prec(-1, /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()"])+/)),
+    _non_quoted_string: _ => token(prec(-1,
+      /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()"])+/
+    )),
 
     _number: _ => /"?[0-9]+(\.[0-9]+)?"?/,
     _semver_number: _ => /"?[0-9]+(\.[0-9]+)*\.x"?/,
