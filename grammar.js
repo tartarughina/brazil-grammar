@@ -26,7 +26,9 @@ module.exports = grammar({
     _value: $ => choice(
       $.dictionary,
       $.list,
-      $.string
+      $.string,
+      $.version,
+      $.boolean
     ),
 
     dictionary: $ => seq(
@@ -52,9 +54,23 @@ module.exports = grammar({
       $._non_quoted_string,
     ),
 
+    version: $ => choice(
+      $._number,
+      $._semver_number,
+      $._mixed_version
+    ),
+
+    boolean: $ => $._boolean,
+
     _quoted_string: _ => /"(?:\\"|[^"])*"/,
 
     _non_quoted_string: _ => /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()])+/,
+
+    _number: _ => /"?[0-9]+(\.[0-9]+)?"?/,
+    _semver_number: _ => /"?[0-9]+(\.[0-9]+)*\.x"?/,
+    _mixed_version: _ => /"?[0-9]+(\.[0-9]+)+(-[a-zA-Z0-9]+)?"?/,
+
+    _boolean: _ => /"?(true|false)"?/,
 
     comment: _ => token(prec(-10, /#[^\n]*/)),
   }

@@ -95,6 +95,14 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "version"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "boolean"
         }
       ]
     },
@@ -193,6 +201,27 @@
         }
       ]
     },
+    "version": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_semver_number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_mixed_version"
+        }
+      ]
+    },
+    "boolean": {
+      "type": "SYMBOL",
+      "name": "_boolean"
+    },
     "_quoted_string": {
       "type": "PATTERN",
       "value": "\"(?:\\\\\"|[^\"])*\""
@@ -200,6 +229,22 @@
     "_non_quoted_string": {
       "type": "PATTERN",
       "value": "(?:\\\\[\\s#,;{}=+()]|[^\\s#,;{}=+()])+"
+    },
+    "_number": {
+      "type": "PATTERN",
+      "value": "\"?[0-9]+(\\.[0-9]+)?\"?"
+    },
+    "_semver_number": {
+      "type": "PATTERN",
+      "value": "\"?[0-9]+(\\.[0-9]+)*\\.x\"?"
+    },
+    "_mixed_version": {
+      "type": "PATTERN",
+      "value": "\"?[0-9]+(\\.[0-9]+)+(-[a-zA-Z0-9]+)?\"?"
+    },
+    "_boolean": {
+      "type": "PATTERN",
+      "value": "\"?(true|false)\"?"
     },
     "comment": {
       "type": "TOKEN",

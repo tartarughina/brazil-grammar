@@ -1,5 +1,10 @@
 [
   {
+    "type": "boolean",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "dictionary",
     "named": true,
     "fields": {},
@@ -23,6 +28,10 @@
       "required": false,
       "types": [
         {
+          "type": "boolean",
+          "named": true
+        },
+        {
           "type": "dictionary",
           "named": true
         },
@@ -32,6 +41,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "version",
           "named": true
         }
       ]
@@ -106,6 +119,10 @@
         "required": true,
         "types": [
           {
+            "type": "boolean",
+            "named": true
+          },
+          {
             "type": "dictionary",
             "named": true
           },
@@ -115,6 +132,10 @@
           },
           {
             "type": "string",
+            "named": true
+          },
+          {
+            "type": "version",
             "named": true
           }
         ]
@@ -139,6 +160,11 @@
   },
   {
     "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "version",
     "named": true,
     "fields": {}
   },
