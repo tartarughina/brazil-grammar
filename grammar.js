@@ -7,11 +7,11 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: $ => $.package_declaration,
+    source_file: $ => $.package,
 
-    package_declaration: $ => seq(
+    package: $ => seq(
       'package.',  // Make this a separate token
-      field('package_name', $._non_quoted_string), // Directly expose the name at top level
+      field('name', $._non_quoted_string), // Directly expose the name at top level
       field('assignment', '='),
       field('value', $.dictionary),
       ';'
