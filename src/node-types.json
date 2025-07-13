@@ -51,26 +51,12 @@
           }
         ]
       },
-      "name": {
+      "package": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "string",
-            "named": true
-          }
-        ]
-      },
-      "package": {
-        "multiple": true,
-        "required": true,
-        "types": [
-          {
-            "type": ".",
-            "named": false
-          },
-          {
-            "type": "package",
+            "type": "package.",
             "named": false
           }
         ]
@@ -173,10 +159,6 @@
     "named": false
   },
   {
-    "type": ".",
-    "named": false
-  },
-  {
     "type": ";",
     "named": false
   },
@@ -190,7 +172,7 @@
     "extra": true
   },
   {
-    "type": "package",
+    "type": "package.",
     "named": false
   },
   {

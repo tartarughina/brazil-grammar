@@ -2,27 +2,33 @@
 Only comments
 =============
 
-# Some comment
-# Other comment
+package.test = {
+    # Some comment
+    # Other comment
+}
 
 --------
 
 (source_file
+    (package_declaration
     (comment)
-    (comment)
+    (comment))
 )
 
 =======================================
 Standalone comments and inline comments
 =======================================
 
-# Comment before
-foo = bar; # inline comment
-# Comment after
+package.test = {
+    # Comment before
+    foo = bar; # inline comment
+    # Comment after
+}
 
 --------
 
 (source_file
+    (package_declaration
     (comment)
     (pair
         key: (string)
@@ -30,6 +36,7 @@ foo = bar; # inline comment
     )
     (comment)
     (comment)
+    )
     )
 
 ===================

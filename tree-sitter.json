@@ -1,0 +1,39 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "brazil_config",
+      "camelcase": "BrazilConfig",
+      "title": "Brazil Config",
+      "scope": "source.brazil_config",
+      "file-types": [
+        "Config"
+      ],
+      "injection-regex": "^brazil_config$",
+      "class-name": "TreeSitterBrazilConfig"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Brazil Config parser for tree-sitter",
+    "authors": [
+      {
+        "name": "Riccardo Strina",
+        "email": "riccardo.strina@icloud.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/tartarughina/tree-sitter-brazil-config"
+    }
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "node": true,
+    "python": false,
+    "rust": true,
+    "swift": false,
+    "zig": false
+  }
+}

@@ -11,9 +11,8 @@ module.exports = grammar({
 
     package_declaration: $ => seq(
       field('package', seq(
-        'package',
-        '.',
-        field('name', $.string)
+        'package.',
+        field('name', $._non_quoted_string)
       )),
       field('assignment', '='),
       field('value', $.dictionary),

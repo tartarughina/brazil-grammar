@@ -17,18 +17,14 @@
             "members": [
               {
                 "type": "STRING",
-                "value": "package"
-              },
-              {
-                "type": "STRING",
-                "value": "."
+                "value": "package."
               },
               {
                 "type": "FIELD",
                 "name": "name",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "string"
+                  "name": "_non_quoted_string"
                 }
               }
             ]
