@@ -4,30 +4,17 @@
   "rules": {
     "source_file": {
       "type": "SYMBOL",
-      "name": "package_declaration"
+      "name": "package"
     },
-    "package_declaration": {
+    "package": {
       "type": "SEQ",
       "members": [
         {
           "type": "FIELD",
-          "name": "package",
+          "name": "name",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "package."
-              },
-              {
-                "type": "FIELD",
-                "name": "name",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_non_quoted_string"
-                }
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "string"
           }
         },
         {

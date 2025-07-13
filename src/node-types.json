@@ -38,7 +38,7 @@
     }
   },
   {
-    "type": "package_declaration",
+    "type": "package",
     "named": true,
     "fields": {
       "assignment": {
@@ -51,13 +51,13 @@
           }
         ]
       },
-      "package": {
+      "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "package.",
-            "named": false
+            "type": "string",
+            "named": true
           }
         ]
       },
@@ -131,7 +131,7 @@
       "required": true,
       "types": [
         {
-          "type": "package_declaration",
+          "type": "package",
           "named": true
         }
       ]
@@ -170,10 +170,6 @@
     "type": "comment",
     "named": true,
     "extra": true
-  },
-  {
-    "type": "package.",
-    "named": false
   },
   {
     "type": "{",
