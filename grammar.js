@@ -1,55 +1,65 @@
 module.exports = grammar({
-    name: 'brazil_config',
+  name: 'brazil_config',
 
-    extras: $ => [
-        $.comment,
-        /\\?\s/,
-    ],
+  extras: $ => [
+    $.comment,
+    /\\?\s/,
+  ],
 
-    rules: {
-        source_file: $ => repeat($.pair),
+  rules: {
+    source_file: $ => $.package_declaration,
 
-        pair: $ => seq(
-            field('key', $.string),
-            field('assignment', choice('=', '+=')),
-            field('value', $._value),
-            ';',
-        ),
+    package_declaration: $ => seq(
+      field('package', seq(
+        'package',
+        '.',
+        field('name', $.string)
+      )),
+      field('assignment', '='),
+      field('value', $.dictionary),
+      ';'
+    ),
 
-        _value: $ => choice(
-            $.dictionary,
-            $.list,
-            $.string
-        ),
+    pair: $ => seq(
+      field('key', $.string),
+      field('assignment', choice('=', '+=')),
+      field('value', $._value),
+      ';',
+    ),
 
-        dictionary: $ => seq(
-            "{",
-            repeat($.pair),
-            "}"
-        ),
+    _value: $ => choice(
+      $.dictionary,
+      $.list,
+      $.string
+    ),
 
-        list: $ => seq(
-            "(",
-            optional($._elements),
-            ")"
-        ),
+    dictionary: $ => seq(
+      "{",
+      repeat($.pair),
+      "}"
+    ),
 
-        _elements: $ => seq(
-            $._value,
-            repeat(seq(',', $._value)),
-            optional(',')
-        ),
+    list: $ => seq(
+      "(",
+      optional($._elements),
+      ")"
+    ),
 
-        string: $ => choice(
-            $._quoted_string,
-            $._non_quoted_string,
-        ),
+    _elements: $ => seq(
+      $._value,
+      repeat(seq(',', $._value)),
+      optional(',')
+    ),
 
-        _quoted_string: _ => /"(?:\\"|[^"])*"/,
+    string: $ => choice(
+      $._quoted_string,
+      $._non_quoted_string,
+    ),
 
-        _non_quoted_string: _ => /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()])+/,
+    _quoted_string: _ => /"(?:\\"|[^"])*"/,
 
-        comment: _ => token(prec(-10, /#[^\n]*/)),
-    }
+    _non_quoted_string: _ => /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()])+/,
+
+    comment: _ => token(prec(-10, /#[^\n]*/)),
+  }
 });
-
