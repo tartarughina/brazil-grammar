@@ -24,6 +24,7 @@ module.exports = grammar({
     ),
 
     _key: $ => choice(
+      prec(3, $.keyword),        // Highest precedence for keywords
       prec(2, $.version),
       prec(1, $.string)
     ),
@@ -34,6 +35,26 @@ module.exports = grammar({
       prec(1, $.dictionary),
       prec(1, $.list),
       prec(1, $.string)
+    ),
+
+    // Add the keyword rule
+    keyword: $ => choice(
+      'build-environment',
+      'build-system',
+      'build-task-configuration',
+      'build-tools',
+      'dependencies',
+      'deploy',
+      'interfaces',
+      'rebuild-when-dependency-changes',
+      'remove-dependencies',
+      'resolves-conflict-dependencies',
+      'runtime-dependencies',
+      'scope',
+      'synonym-for',
+      'targets',
+      'test-dependencies',
+      'type'
     ),
 
     dictionary: $ => seq(

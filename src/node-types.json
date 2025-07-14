@@ -20,6 +20,11 @@
     }
   },
   {
+    "type": "keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "list",
     "named": true,
     "fields": {},
@@ -109,6 +114,10 @@
         "required": true,
         "types": [
           {
+            "type": "keyword",
+            "named": true
+          },
+          {
             "type": "string",
             "named": true
           },
@@ -197,9 +206,73 @@
     "named": false
   },
   {
+    "type": "build-environment",
+    "named": false
+  },
+  {
+    "type": "build-system",
+    "named": false
+  },
+  {
+    "type": "build-task-configuration",
+    "named": false
+  },
+  {
+    "type": "build-tools",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true,
     "extra": true
+  },
+  {
+    "type": "dependencies",
+    "named": false
+  },
+  {
+    "type": "deploy",
+    "named": false
+  },
+  {
+    "type": "interfaces",
+    "named": false
+  },
+  {
+    "type": "rebuild-when-dependency-changes",
+    "named": false
+  },
+  {
+    "type": "remove-dependencies",
+    "named": false
+  },
+  {
+    "type": "resolves-conflict-dependencies",
+    "named": false
+  },
+  {
+    "type": "runtime-dependencies",
+    "named": false
+  },
+  {
+    "type": "scope",
+    "named": false
+  },
+  {
+    "type": "synonym-for",
+    "named": false
+  },
+  {
+    "type": "targets",
+    "named": false
+  },
+  {
+    "type": "test-dependencies",
+    "named": false
+  },
+  {
+    "type": "type",
+    "named": false
   },
   {
     "type": "{",
