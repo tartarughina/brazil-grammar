@@ -24,7 +24,7 @@ module.exports = grammar({
     ),
 
     _key: $ => choice(
-      prec(3, $.keyword),        // Highest precedence for keywords
+      prec(3, $.keyword),
       prec(2, $.version),
       prec(1, $.string)
     ),
@@ -38,7 +38,7 @@ module.exports = grammar({
     ),
 
     // Add the keyword rule
-    keyword: $ => choice(
+    keyword: _ => choice(
       'build-environment',
       'build-system',
       'build-task-configuration',
@@ -80,25 +80,15 @@ module.exports = grammar({
       prec(-1, $._non_quoted_string),
     ),
 
-    version: $ => choice(
-      prec(3, $._mixed_version),
-      prec(2, $._semver_number),
-      prec(1, $._number)
-    ),
-
-    boolean: $ => $._boolean,
-
     _quoted_string: _ => /"(?:\\"|[^"])*"/,
 
     _non_quoted_string: _ => token(prec(-1,
       /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()"])+/
     )),
 
-    _number: _ => /"?[0-9]+(\.[0-9]+)?"?/,
-    _semver_number: _ => /"?[0-9]+(\.[0-9]+)*\.x"?/,
-    _mixed_version: _ => /"?[0-9]+(\.[0-9]+)+(-[a-zA-Z0-9]+)?"?/,
+    version: _ => /(\d+(?:\.[a-zA-Z0-9_\-]+)*)/,
 
-    _boolean: _ => /"?(true|false)"?/,
+    boolean: _ => /(true|false)/,
 
     comment: _ => token(prec(-10, /#[^\n]*/)),
   }

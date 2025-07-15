@@ -1,10 +1,5 @@
 [
   {
-    "type": "boolean",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "dictionary",
     "named": true,
     "fields": {},
@@ -177,11 +172,6 @@
     "fields": {}
   },
   {
-    "type": "version",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "(",
     "named": false
   },
@@ -204,6 +194,10 @@
   {
     "type": "=",
     "named": false
+  },
+  {
+    "type": "boolean",
+    "named": true
   },
   {
     "type": "build-environment",
@@ -273,6 +267,10 @@
   {
     "type": "type",
     "named": false
+  },
+  {
+    "type": "version",
+    "named": true
   },
   {
     "type": "{",
