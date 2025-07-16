@@ -14,7 +14,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "string"
+            "name": "name"
           }
         },
         {
@@ -36,6 +36,26 @@
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "package"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "."
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
         }
       ]
     },
@@ -105,7 +125,7 @@
           "value": 1,
           "content": {
             "type": "SYMBOL",
-            "name": "string"
+            "name": "identifier"
           }
         }
       ]
@@ -151,6 +171,14 @@
           "content": {
             "type": "SYMBOL",
             "name": "string"
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
           }
         }
       ]
@@ -307,48 +335,61 @@
       ]
     },
     "string": {
-      "type": "CHOICE",
+      "type": "SEQ",
       "members": [
         {
-          "type": "PREC",
-          "value": 1,
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "_quoted_string"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^\\\\\"\\n]+"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "\\"
+                  },
+                  {
+                    "type": "PATTERN",
+                    "value": "[\\\\'\"nrt]"
+                  }
+                ]
+              }
+            ]
           }
         },
         {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "_non_quoted_string"
-          }
+          "type": "STRING",
+          "value": "\""
         }
       ]
     },
-    "_quoted_string": {
+    "identifier": {
       "type": "PATTERN",
-      "value": "\"(?:\\\\\"|[^\"])*\""
-    },
-    "_non_quoted_string": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": "(?:\\\\[\\s#,;{}=+()]|[^\\s#,;{}=+()\"])+"
-        }
-      }
+      "value": "[\\p{XID_Start}_$][\\p{XID_Continue}\\-_.$]*"
     },
     "version": {
       "type": "PATTERN",
       "value": "(\\d+(?:\\.[a-zA-Z0-9_\\-]+)*)"
     },
     "boolean": {
-      "type": "PATTERN",
-      "value": "(true|false)"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "(true|false)"
+        }
+      }
     },
     "comment": {
       "type": "TOKEN",

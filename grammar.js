@@ -10,10 +10,16 @@ module.exports = grammar({
     source_file: $ => $.package,
 
     package: $ => seq(
-      field('name', $.string),
+      field('name', $.name),
       field('assignment', '='),
       field('value', $.dictionary),
       ';'
+    ),
+
+    name: $ => seq(
+      'package',
+      token.immediate('.'),
+      $.identifier
     ),
 
     pair: $ => seq(
@@ -26,7 +32,7 @@ module.exports = grammar({
     _key: $ => choice(
       prec(3, $.keyword),
       prec(2, $.version),
-      prec(1, $.string)
+      prec(1, $.identifier)
     ),
 
     _value: $ => choice(
@@ -34,7 +40,8 @@ module.exports = grammar({
       prec(2, $.boolean),
       prec(1, $.dictionary),
       prec(1, $.list),
-      prec(1, $.string)
+      prec(1, $.string),
+      prec(1, $.identifier)
     ),
 
     // Add the keyword rule
@@ -75,20 +82,20 @@ module.exports = grammar({
       optional(',')
     ),
 
-    string: $ => choice(
-      prec(1, $._quoted_string),
-      prec(-1, $._non_quoted_string),
+    string: _ => seq(
+      '"',
+      repeat(choice(
+        /[^\\"\n]+/, // Any character except backslash, double quote, or newline
+        seq('\\', /[\\'"nrt]/) // Escape sequences
+      )),
+      '"'
     ),
 
-    _quoted_string: _ => /"(?:\\"|[^"])*"/,
-
-    _non_quoted_string: _ => token(prec(-1,
-      /(?:\\[\s#,;{}=+()]|[^\s#,;{}=+()"])+/
-    )),
+    identifier: _ => /[\p{XID_Start}_$][\p{XID_Continue}\-_.$]*/,
 
     version: _ => /(\d+(?:\.[a-zA-Z0-9_\-]+)*)/,
 
-    boolean: _ => /(true|false)/,
+    boolean: _ => token(prec(1, /(true|false)/)),
 
     comment: _ => token(prec(-10, /#[^\n]*/)),
   }
